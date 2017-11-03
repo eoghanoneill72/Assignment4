@@ -9,35 +9,45 @@ package queueAndDeque;
  */
 public class LinkedDeque<E> implements Deque<E> {
 
+	protected Position<E> front, rear;  // sentinels
+//	protected DLNode<E> front, rear;  // sentinels
+	protected int size;    // current number of elements held.
+	
 	/**
-	 * 
+	 * Creates empty deque.
 	 */
 	public LinkedDeque() {
-		// TODO Auto-generated constructor stub
+	front = new Position<E>();
+    rear = new Position<E>();
+    //both pointing to null by default
+//    front.setElement(rear);  // make header point to trailer
+//    rear.setElement(front);  // make trailer point to header
+    size = 0;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return size==0;
 	}
 
 	@Override
 	public E getFirst() throws EmptyDequeException {
 		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty())
+			throw new EmptyDequeException("Deque Empty!");
+		return front.getElement();
 	}
 
 	@Override
 	public E getLast() throws EmptyDequeException {
-		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty())
+			throw new EmptyDequeException("Deque is empty.");
+		return rear.getElement();
 	}
 
 	@Override
