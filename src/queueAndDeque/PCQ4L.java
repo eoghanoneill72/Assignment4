@@ -2,6 +2,11 @@ package queueAndDeque;
 
 import queueAndDeque.LinkedDeque;
 
+/**
+ * Executable class to carry out instructions as per Part A question 7
+ * @author 12312821
+ *
+ */
 public class PCQ4L {
 
 	public static void main(String[] args) {

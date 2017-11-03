@@ -14,32 +14,47 @@ public class LinkedDeque<E> implements Deque<E> {
 	protected int size;    // current number of elements held.
 	
 	/**
-	 * Creates empty deque.
+	 * Creates empty deque of type E objects.
 	 */
 	public LinkedDeque() {
 	front = new DLNode<E>();
     rear = new DLNode<E>();
     size = 0;
 	}
+	
 
+	/* (non-Javadoc)
+	 * @see queueAndDeque.Deque#size()
+	 */
 	@Override
 	public int size() {
 		return size;
 	}
+	
 
+	/* (non-Javadoc)
+	 * @see queueAndDeque.Deque#isEmpty()
+	 */
 	@Override
 	public boolean isEmpty() {
 		return size==0;
 	}
+	
 
+	/* (non-Javadoc)
+	 * @see queueAndDeque.Deque#getFirst()
+	 */
 	@Override
 	public E getFirst() throws EmptyDequeException {
-		// TODO Auto-generated method stub
 		if (isEmpty())
 			throw new EmptyDequeException("Deque Empty! Cannot get First!");
 		return front.getElement();
 	}
+	
 
+	/* (non-Javadoc)
+	 * @see queueAndDeque.Deque#getLast()
+	 */
 	@Override
 	public E getLast() throws EmptyDequeException {
 		if (isEmpty())
@@ -48,6 +63,10 @@ public class LinkedDeque<E> implements Deque<E> {
 		return rear.getElement();
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see queueAndDeque.Deque#addFirst(java.lang.Object)
+	 */
 	@Override
 	public void addFirst(E element) {
 		DLNode<E> node = new DLNode<E>(element);
@@ -67,6 +86,10 @@ public class LinkedDeque<E> implements Deque<E> {
 		
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see queueAndDeque.Deque#addLast(java.lang.Object)
+	 */
 	@Override
 	public void addLast(E element) {
 		DLNode<E> node = new DLNode<E>(element);
@@ -84,10 +107,13 @@ public class LinkedDeque<E> implements Deque<E> {
 		rear = node;
 		size++;
 	}
+	
 
+	/* (non-Javadoc)
+	 * @see queueAndDeque.Deque#removeFirst()
+	 */
 	@Override
 	public E removeFirst() throws EmptyDequeException {
-		// TODO Auto-generated method stub
 		if (isEmpty())
 			throw new EmptyDequeException("Deque already empty, cannot remove first!");
 		//extract node element to temporary variable
@@ -105,6 +131,9 @@ public class LinkedDeque<E> implements Deque<E> {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see queueAndDeque.Deque#removeLast()
+	 */
 	@Override
 	public E removeLast() throws EmptyDequeException {
 		if (isEmpty())
@@ -122,7 +151,11 @@ public class LinkedDeque<E> implements Deque<E> {
 		}
 		return e;
 	}
+	
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -134,8 +167,6 @@ public class LinkedDeque<E> implements Deque<E> {
 		}
 		return sb.toString();
 	}
-	
-	
 	
 
 }

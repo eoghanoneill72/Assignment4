@@ -2,6 +2,8 @@ package queueAndDeque;
 
 
      /** 
+      * Source code supplied on Moodle
+      * 
       * Interface for a deque: a collection of objects that are inserted
       * and removed at both ends; a subset of java.util.LinkedList methods.
       * 

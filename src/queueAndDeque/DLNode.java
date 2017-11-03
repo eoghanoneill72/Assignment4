@@ -1,5 +1,8 @@
 package queueAndDeque;
 /**
+ * Doubly linked Node class provided on Moodle
+ * additions have been made
+ * 
  * A simple node class for a doubly-linked list.  Each node has a
  * reference to a stored element, a previous node, and a next node.
  * This class differs from the <code>DNode</code> class in that it
