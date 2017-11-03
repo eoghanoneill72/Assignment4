@@ -27,5 +27,13 @@ public class DLNode<E> {
   public E getElement() { return element; }
   public DLNode<E> getNext() { return next; }
   public DLNode<E> getPrev() { return prev; }
+
+  
+  @Override
+  public String toString() {
+	return "DLNode [prev=" + prev + "element=" + element + ", next=" + next +  "]\n";
+}
+  
+  
 }
 //end#fragment DLNode

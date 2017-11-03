@@ -1,4 +1,4 @@
-/**
+p/**
  * 
  */
 package queueAndDeque;
@@ -7,19 +7,19 @@ package queueAndDeque;
  * @author 12312821
  *
  */
-public class LinkedDeque<E> implements Deque<E> {
+public class PositionLinkedDeque<E> implements Deque<E> {
 
-//	protected Position<DLNode<E>> front;
-//	protected Position<DLNode<E>> rear;  // sentinels
-	protected DLNode<E> front, rear;  // sentinels
+	protected Position<DLNode<E>> front;
+	protected Position<DLNode<E>> rear;  // sentinels
+//	protected DLNode<E> front, rear;  // sentinels
 	protected int size;    // current number of elements held.
 	
 	/**
 	 * Creates empty deque.
 	 */
-	public LinkedDeque() {
-	front = new DLNode<E>();
-    rear = new DLNode<E>();
+	public PositionLinkedDeque() {
+	front = new Position<DLNode<E>>();
+    rear = new Position<DLNode<E>>();
     //both pointing to null by default
 //    front.setElement(rear);  // make header point to trailer
 //    rear.setElement(front);  // make trailer point to header
@@ -41,7 +41,7 @@ public class LinkedDeque<E> implements Deque<E> {
 		// TODO Auto-generated method stub
 		if (isEmpty())
 			throw new EmptyDequeException("Deque Empty!");
-		return front.getElement();
+		return front.getElement().getElement();
 	}
 
 	@Override
@@ -49,72 +49,52 @@ public class LinkedDeque<E> implements Deque<E> {
 		if (isEmpty())
 			throw new EmptyDequeException("Deque is empty.");
 		//Chain methods, get element within node
-		return rear.getElement();
+		return rear.getElement().getElement();
 	}
 
 	@Override
 	public void addFirst(E element) {
-		DLNode<E> node = new DLNode<E>();
-		front.setPrev(node);
-		front = node;
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void addLast(E element) {
+		// TODO Auto-generated method stub
 		DLNode<E> node = new DLNode<E>();
-		node.setNext(null);
 		if (front == null) {
-			node.setPrev(null);
-			front = node;
-		}else {
-			rear.setNext(node);
+			front.setElement(node);
 		}
-		rear = node;
-		size++;
 	}
 
 	@Override
 	public E removeFirst() throws EmptyDequeException {
 		// TODO Auto-generated method stub
-		if (isEmpty())
-			throw new EmptyDequeException("Deque Empty!");
-		E e = front.getElement();
-		front = front.getNext();
-		size--;
+		if (isEmpty()) return null;
+		E e = front.getElement().getElement();
+		front.getElement().setNext(front);
+		size++;
 		
 		if (size>0) {
-			front.setPrev(null);
-			return e;
-		}else{
-			return e;
+			front.getElement().getPrev() = null;
+			
 		}
+		return e;
 	}
 
 	@Override
 	public E removeLast() throws EmptyDequeException {
-		if (isEmpty())
-			throw new EmptyDequeException("Deque Empty!");
-		E e = rear.getElement();
-		rear = rear.getPrev();
-		size--;
-		
-		if(size>0) {
-			rear.setNext(null);
-			return e;
-		}else {
-			return e;
-		}
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		DLNode<E> temp = front;
-		while (temp.getNext() != null) {
-			sb.append(temp.toString());
-			temp = temp.getNext();
-		}
-		return sb.toString();
+		//TODO Change This!!
+		return "LinkedDeque [size()=" + size() + ", isEmpty()=" + isEmpty() + ", getFirst()=" + getFirst()
+				+ ", getLast()=" + getLast() + ", removeFirst()=" + removeFirst() + ", removeLast()=" + removeLast()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
 	
 	
