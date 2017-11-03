@@ -9,8 +9,7 @@ package queueAndDeque;
  */
 public class LinkedDeque<E> implements Deque<E> {
 
-//	protected Position<DLNode<E>> front;
-//	protected Position<DLNode<E>> rear;  // sentinels
+
 	protected DLNode<E> front, rear;  // sentinels
 	protected int size;    // current number of elements held.
 	
@@ -20,9 +19,6 @@ public class LinkedDeque<E> implements Deque<E> {
 	public LinkedDeque() {
 	front = new DLNode<E>();
     rear = new DLNode<E>();
-    //both pointing to null by default
-//    front.setElement(rear);  // make header point to trailer
-//    rear.setElement(front);  // make trailer point to header
     size = 0;
 	}
 
@@ -40,34 +36,50 @@ public class LinkedDeque<E> implements Deque<E> {
 	public E getFirst() throws EmptyDequeException {
 		// TODO Auto-generated method stub
 		if (isEmpty())
-			throw new EmptyDequeException("Deque Empty!");
+			throw new EmptyDequeException("Deque Empty! Cannot get First!");
 		return front.getElement();
 	}
 
 	@Override
 	public E getLast() throws EmptyDequeException {
 		if (isEmpty())
-			throw new EmptyDequeException("Deque is empty.");
+			throw new EmptyDequeException("Deque is empty, cannot get last!");
 		//Chain methods, get element within node
 		return rear.getElement();
 	}
 
 	@Override
 	public void addFirst(E element) {
-		DLNode<E> node = new DLNode<E>();
-		front.setPrev(node);
-		front = node;
+		DLNode<E> node = new DLNode<E>(element);
+		if (isEmpty()) {
+			//both front and rear point to same node
+			front = rear = node;			
+		}else {
+			//the list has a pre-existing front and rear to negotiate
+			//the new node now points to what was the front element
+			node.setNext(front);
+			//the old front now points back to the new node
+			front.setPrev(node);
+			//the role of front is officially transferred to the new node
+			front = node;			
+		}
+		size++;
+		
 	}
 
 	@Override
 	public void addLast(E element) {
-		DLNode<E> node = new DLNode<E>();
-		node.setNext(null);
+		DLNode<E> node = new DLNode<E>(element);
 		if (front == null) {
-			node.setPrev(null);
+			//then the list is empty and front and rear are null
+			node.setPrev(front);
+			node.setNext(rear);
+			// reassign both front and rear to point to new node
 			front = node;
 		}else {
+			//the list is not empty and has a rear
 			rear.setNext(node);
+			node.setPrev(rear);
 		}
 		rear = node;
 		size++;
@@ -77,40 +89,46 @@ public class LinkedDeque<E> implements Deque<E> {
 	public E removeFirst() throws EmptyDequeException {
 		// TODO Auto-generated method stub
 		if (isEmpty())
-			throw new EmptyDequeException("Deque Empty!");
+			throw new EmptyDequeException("Deque already empty, cannot remove first!");
+		//extract node element to temporary variable
 		E e = front.getElement();
-		front = front.getNext();
 		size--;
-		
-		if (size>0) {
+		if(size==0) {
+			front = rear = null;
+		}else {
+			//assign front to the second element
+			front = front.getNext();
+			//new front should not be the successor of the old front
 			front.setPrev(null);
-			return e;
-		}else{
-			return e;
 		}
+		return e;
+		
 	}
 
 	@Override
 	public E removeLast() throws EmptyDequeException {
 		if (isEmpty())
-			throw new EmptyDequeException("Deque Empty!");
+			throw new EmptyDequeException("Deque already empty, cannot remove last!");
 		E e = rear.getElement();
-		rear = rear.getPrev();
 		size--;
 		
-		if(size>0) {
-			rear.setNext(null);
-			return e;
+		if (size==0) {
+		// removal leaves an empty list
+			front = rear = null;
 		}else {
-			return e;
+		// removal leaves non-empty list
+		rear = rear.getPrev();
+		rear.setNext(null);
 		}
+		return e;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		//start at the front and iterate through nodes
 		DLNode<E> temp = front;
-		while (temp.getNext() != null) {
+		while (temp != null) {
 			sb.append(temp.toString());
 			temp = temp.getNext();
 		}

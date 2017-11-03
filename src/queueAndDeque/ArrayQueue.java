@@ -69,8 +69,12 @@ public class ArrayQueue<E> implements Queue<E> {
 
 	@Override
 	public String toString() {
-		return "ArrayQueue [size()=" + size() + ", isEmpty()=" + isEmpty() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+		StringBuilder sb = new StringBuilder("size: "+size());
+		
+		for (int i = 0 ; i<size ; i++) {
+			sb.append(data[i].toString()+"\n");
+		}
+		return sb.toString();
 	}
 	
 	
